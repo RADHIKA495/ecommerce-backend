@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+
+<body>
+    <h1>My Cart</h1>
+
+
+    <% if(cartItems.length===0){ %>
+
+        <h3>Your cart is empty</h3>
+
+        <% } else { %>
+
+            <% cartItems.forEach(item=> { %>
+
+                <div>
+
+                    <h3>
+                        <%= item.product.productName %>
+                    </h3>
+
+                    <img src="<%= item.product.imageUrl %>" width="150">
+
+                    <p>
+                        Price: ₹<%= item.product.price %>
+                    </p>
+
+                    <p>
+                        Quantity:
+                        <%= item.quantity %>
+                    </p>
+
+                    <form action="/cart/increase/<%= item.product._id %>" method="POST">
+                        <button type="submit">
+                            +
+                        </button>
+                    </form>
+
+                    <form action="/cart/decrease/<%= item.product._id %>" method="POST">
+                        <button type="submit">
+                            -
+                        </button>
+                    </form>
+
+                    <form action="/cart/remove/<%= item.product._id %>" method="POST">
+                        <button type="submit">
+                            Remove
+                        </button>
+                    </form>
+
+                </div>
+
+                <hr>
+                <% }) %>
+
+                    <h2>
+                        Total: ₹<%= totalPrice %>
+
+                            <form action="/place-order" method="POST">
+                                <button type="submit">
+                                    Place Order
+                                </button>
+                            </form>
+                    </h2>
+
+                    <% } %>
+
+</body>
+
+</html>

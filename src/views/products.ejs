@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+
+<body>
+    <h1>All Products</h1>
+
+    <form action="/products-page" method="GET">
+
+        <input type="text" name="search" placeholder="Search products">
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+    <hr>
+
+    <% if(products.length===0) { %>
+        <h3>No products found</h3>
+        <% } else { %>
+
+            <% products.forEach(product=> { %>
+                <div>
+                    <h3>
+                        <%= product.productName %>
+                    </h3>
+                    <img src="<%= product.imageUrl %>" width="150">
+
+                    <p>
+                        Price: ₹<%= product.price %>
+                    </p>
+
+                    <% if(product.stock===0){ %>
+
+                        <h3>Out Of Stock</h3>
+
+                        <% } %>
+                            <p>Stock: <%= product.stock %>
+                            </p>
+
+                            <p>
+                                Owner: <%= product.user.name %>
+                            </p>
+
+                            <p>
+                                Created: <%= product.createdAt.toDateString() %>
+                            </p>
+
+                            <br><br>
+
+                            <% if(isLoggedIn){%>
+                                <a href="/products/edit-product/<%= product._id %>">
+                                    Edit
+                                </a>
+                                <%}%>
+
+                                    <% if(isLoggedIn){%>
+                                        <form action="/products/delete-product/<%= product._id %>" method="POST">
+                                            <button type="submit">
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                        <%}%>
+
+
+                                            <% if(isLoggedIn){%>
+                                                <form action="/cart/add/<%= product._id %>" method="POST">
+                                                    <button type="submit">
+                                                        Add to Cart
+                                                    </button>
+
+                                                </form>
+
+                                                <%}%>
+
+                                                    <a href="/products/details/<%= product._id %>">
+                                                        View Product
+                                                    </a>
+
+
+                </div>
+                <hr>
+                <% }) %>
+
+                    <% } %>
+
+                        <% if(currentPage> 1){ %>
+                            <a href="/products-page?page=<%=currentPage-1%>">Previous</a>
+                            <%}%>
+
+                                &nbsp;&nbsp;
+                                Page <%= currentPage %> of <%= totalPages %>
+
+                                        &nbsp;&nbsp;
+
+                                        <% if(currentPage < totalPages){ %>
+                                            <a href="/products-page?page=<%= currentPage + 1 %>">
+                                                Next
+                                            </a>
+                                            <br><br>
+                                            <% } %>
+                                                <% if(isLoggedIn){%>
+
+                                                    <a href="/add-product">Add product</a>
+                                                    <br><br>
+                                                    <a href="/cart">
+                                                        My Cart
+                                                    </a>
+
+                                                    <form action="/orders" method="GET">
+                                                        <button type="submit">My Orders</button>
+                                                    </form>
+                                                    <%}%>
+</body>
+
+</html>

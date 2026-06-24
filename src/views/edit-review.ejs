@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+</head>
+
+<body>
+    <h1>Edit Review</h1>
+
+    <form action="/products/review/edit/<%= review._id %>" method="POST">
+
+        <label>Rating</label>
+
+        <select name="rating">
+
+            <option value="1" <%=review.rating==1 ? "selected" : "" %>>
+                1 Star
+            </option>
+
+            <option value="2" <%=review.rating==2 ? "selected" : "" %>>
+                2 Stars
+            </option>
+
+            <option value="3" <%=review.rating==3 ? "selected" : "" %>>
+                3 Stars
+            </option>
+
+            <option value="4" <%=review.rating==4 ? "selected" : "" %>>
+                4 Stars
+            </option>
+
+            <option value="5" <%=review.rating==5 ? "selected" : "" %>>
+                5 Stars
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <textarea name="comment" rows="4" cols="40"><%= review.comment %></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Update Review
+        </button>
+
+    </form>
+</body>
+
+</html>

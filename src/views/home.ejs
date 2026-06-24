@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce Backend</title>
+</head>
+
+<body>
+    <h1>Wellcome to Ecommerce Backend</h1>
+
+    <a href="/products-page">All Products</a>
+
+    <br><br>
+
+    <% if(!isLoggedIn){%>
+        <a href="/register">Register</a>
+        <br><br>
+
+        <a href="/login">Login</a>
+        <%} else{%>
+            <a href="/api/auth/logout">Logout</a>
+            <br><br>
+
+            <a href="/products/my-products">My Products</a>
+            <br><br>
+
+            <a href="/add-product">Add Product</a>
+            <br><br>
+
+            <a href="/seller/dashboard">Seller Dashboard</a>
+            <br><br>
+
+            <form action="/orders" method="GET">
+                <button type="submit">My Orders</button>
+            </form>
+            <%}%>
+</body>
+
+</html>

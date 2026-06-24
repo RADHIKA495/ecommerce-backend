@@ -1,0 +1,109 @@
+<h1>
+    <%= product.productName %>
+</h1>
+
+<img src="<%= product.imageUrl %>" width="300">
+
+<p>
+    Price:
+    ₹<%= product.price %>
+</p>
+
+<p>Stock: <%= product.stock %>
+</p>
+
+<% if(product.stock===0){ %>
+    <h3>Out Of Stock</h3>
+    <% } %>
+
+        <p>
+            Average Rating:
+            <%= product.averageRating.toFixed(1) %>
+        </p>
+
+        <p>
+            Reviews:
+            <%= product.numReviews %>
+        </p>
+
+        <hr>
+
+        <h2>Reviews</h2>
+
+        <% if(reviews.length===0){ %>
+
+            <p>No reviews yet</p>
+
+            <% } %>
+
+                <% reviews.forEach(review=> { %>
+
+                    <div>
+
+                        <p>
+                            <strong>
+                                <%= review.user.name %>
+                            </strong>
+                        </p>
+
+                        <p>
+                            Rating:
+                            <%= review.rating %>/5
+                        </p>
+
+                        <p>
+                            <%= review.comment %>
+                        </p>
+
+                        <% if(review.user._id.toString()===currentUserId){ %>
+
+                            <form action="/products/review/delete/<%= review._id %>" method="POST">
+                                <button type="submit">
+                                    Delete Review
+                                </button>
+                            </form>
+
+                            <a href="/products/review/edit/<%= review._id %>">
+                                Edit Review
+                            </a>
+
+                            <% } %>
+
+                                <hr>
+
+
+                    </div>
+
+                    <% }) %>
+
+
+
+                        <hr>
+
+                        <h2>Add Review</h2>
+
+                        <form action="/products/<%= product._id %>/review" method="POST">
+
+                            <label>Rating</label>
+
+                            <select name="rating" required>
+                                <option value="1">1 Star</option>
+                                <option value="2">2 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="5">5 Stars</option>
+                            </select>
+
+                            <br><br>
+
+                            <label>Comment</label>
+
+                            <textarea name="comment" rows="4" cols="40" required></textarea>
+
+                            <br><br>
+
+                            <button type="submit">
+                                Submit Review
+                            </button>
+
+                        </form>

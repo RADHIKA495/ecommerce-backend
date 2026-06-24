@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Orders</title>
+</head>
+
+<body>
+    <h1>Seller Orders</h1>
+
+    <% sellerOrders.forEach(order=> { %>
+
+        <div>
+
+            <h3>
+                <%= order.productName %>
+            </h3>
+
+            <p>
+                Customer:
+                <%= order.customer ? order.customer.name : "User Deleted" %>
+            </p>
+
+            <p>
+                Quantity:
+                <%= order.quantity %>
+            </p>
+
+            <p>
+                Price:
+                ₹<%= order.price %>
+            </p>
+
+            <p>
+                Status:
+                <%= order.status %>
+            </p>
+
+
+            <form action="/seller/orders/<%= order.orderId %>/items/<%= order.itemId %>/status" method="POST">
+
+                <select name="status">
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+
+                <button type="submit">
+                    Update Status
+                </button>
+
+            </form>
+
+            <hr>
+
+        </div>
+
+        <% }) %>
+
+</body>
+
+</html>

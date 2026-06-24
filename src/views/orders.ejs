@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Orders</title>
+</head>
+
+<body>
+
+    <h1>My Orders</h1>
+
+    <% if(orders.length===0){ %>
+
+        <h3>No Orders Yet</h3>
+
+        <% } %>
+
+            <% orders.forEach(order=> { %>
+
+                <hr>
+
+                <h3>
+                    Order Date:
+                    <%= order.createdAt.toDateString() %>
+                </h3>
+
+                <h4>
+                    Total Amount:
+                    ₹<%= order.totalAmount %>
+                </h4>
+
+                <% order.items.forEach(item=> { %>
+
+                    <p>
+                        <strong>
+                            <%= item.productName %>
+                        </strong>
+                    </p>
+
+                    <p>
+                        Price: ₹<%= item.price %>
+                    </p>
+
+                    <p>
+                        Quantity: <%= item.quantity %>
+                    </p>
+
+                    <p>Status: <%= item.status %>
+                    </p>
+
+                    <br>
+
+                    <% }) %>
+
+                        <% }) %>
+
+</body>
+
+</html>
